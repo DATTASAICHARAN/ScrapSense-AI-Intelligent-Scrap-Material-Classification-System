@@ -1,0 +1,26 @@
+# Python caches
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Environment variables
+.env
+
+# Local database
+scrap_history.db
+
+# Large images and test images
+saved_images/*
+!saved_images/.gitkeep
+test_images/
+
+# Caches and temporary files
+.pytest_cache/
+.ipynb_checkpoints/
+*.log
+_test_pdf_output.txt
+
+# Virtual environments
+venv/
+env/
+.venv/

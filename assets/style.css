@@ -1,0 +1,322 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+/* --- DESIGN SYSTEM (TOKENS) --- */
+:root {
+    --bg-base: #0a0c10;
+    --bg-card: rgba(18, 22, 28, 0.6);
+    --bg-card-hover: rgba(28, 33, 40, 0.8);
+    --bg-input: rgba(28, 33, 40, 0.5);
+    
+    --text-main: #f0f6fc;
+    --text-muted: #8b949e;
+    
+    --border-color: rgba(48, 54, 61, 0.6);
+    --border-highlight: rgba(88, 166, 255, 0.3);
+    
+    --accent-primary: #2f81f7;
+    --accent-primary-hover: #388bfd;
+    --accent-secondary: #238636;
+    --accent-secondary-hover: #2ea043;
+    --accent-red: #da3633;
+    
+    --radius-sm: 6px;
+    --radius-md: 12px;
+    --radius-lg: 16px;
+    --radius-xl: 24px;
+    
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    --shadow-md: 0 4px 6px rgba(0,0,0,0.3);
+    --shadow-lg: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
+    
+    --blur-effect: blur(12px);
+    
+    --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+/* --- BASE STYLES --- */
+.stApp {
+    background-color: var(--bg-base);
+    background-image: 
+        radial-gradient(ellipse at 10% 10%, rgba(47, 129, 247, 0.05) 0%, transparent 50%),
+        radial-gradient(ellipse at 90% 90%, rgba(35, 134, 54, 0.05) 0%, transparent 50%);
+    background-attachment: fixed;
+    color: var(--text-main);
+    font-family: 'Inter', sans-serif;
+}
+
+/* Hide standard Streamlit header/footer */
+header[data-testid="stHeader"] {
+    background-color: transparent !important;
+}
+footer {visibility: hidden;}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+::-webkit-scrollbar-track {
+    background: var(--bg-base);
+}
+::-webkit-scrollbar-thumb {
+    background: var(--border-color);
+    border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: var(--text-muted);
+}
+
+/* --- TYPOGRAPHY --- */
+h1, h2, h3, h4, h5, h6 {
+    color: var(--text-main);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+}
+p {
+    color: var(--text-muted);
+}
+
+/* --- COMPONENTS --- */
+
+/* Glassmorphism Cards (Metrics, Info boxes) */
+[data-testid="stMetric"], 
+.glass-card {
+    background: var(--bg-card) !important;
+    backdrop-filter: var(--blur-effect);
+    -webkit-backdrop-filter: var(--blur-effect);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md) !important;
+    padding: 1.5rem !important;
+    box-shadow: var(--shadow-sm);
+    transition: var(--transition);
+}
+
+[data-testid="stMetric"]:hover {
+    background: var(--bg-card-hover) !important;
+    border-color: var(--border-highlight);
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
+}
+
+[data-testid="stMetricLabel"] {
+    color: var(--text-muted) !important;
+    font-weight: 500;
+    font-size: 0.9rem;
+}
+
+[data-testid="stMetricValue"] {
+    color: var(--text-main) !important;
+    font-weight: 700;
+    font-size: 2.2rem !important;
+    letter-spacing: -0.03em;
+}
+
+[data-testid="stMetricDelta"] {
+    font-size: 0.9rem !important;
+}
+
+/* KPI Card Accent Borders */
+/* We use nth-child or specific containers via Streamlit's layout, but Streamlit is tricky. 
+   We will rely on inline HTML/styling for specific accents in app.py where needed. */
+
+/* Primary Button (Gradient + Pulse on hover) */
+div.stButton > button[kind="primary"] {
+    background: linear-gradient(135deg, var(--accent-primary) 0%, #1d4ed8 100%);
+    color: #ffffff;
+    border: none;
+    border-radius: var(--radius-md);
+    padding: 0.75rem 1.5rem;
+    font-weight: 600;
+    transition: var(--transition);
+    box-shadow: 0 4px 10px rgba(47, 129, 247, 0.3);
+}
+
+div.stButton > button[kind="primary"]:hover {
+    box-shadow: 0 6px 15px rgba(47, 129, 247, 0.5);
+    transform: translateY(-2px);
+    border: none;
+}
+
+div.stButton > button[kind="primary"]:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 5px rgba(47, 129, 247, 0.4);
+}
+
+div.stButton > button[kind="primary"]:disabled {
+    background: #21262d;
+    color: #484f58;
+    box-shadow: none;
+    transform: none;
+    cursor: not-allowed;
+}
+
+/* Secondary Button */
+div.stButton > button[kind="secondary"],
+div.stDownloadButton > button {
+    background: var(--bg-input);
+    color: var(--text-main);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    transition: var(--transition);
+}
+
+div.stButton > button[kind="secondary"]:hover,
+div.stDownloadButton > button:hover {
+    background: rgba(48, 54, 61, 0.8);
+    border-color: var(--text-muted);
+}
+
+/* File Uploader Dropzone */
+[data-testid="stFileUploadDropzone"] {
+    background: var(--bg-card);
+    border: 2px dashed var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: 2rem;
+    transition: var(--transition);
+}
+
+[data-testid="stFileUploadDropzone"]:hover {
+    background: var(--bg-input);
+    border-color: var(--accent-primary);
+}
+
+/* Hide the generic upload icon if we want:
+   [data-testid="stFileUploadDropzone"] section > div > span:empty { display: none; } */
+
+/* Inputs */
+.stTextInput input, .stNumberInput input, .stSelectbox > div > div {
+    background: var(--bg-input) !important;
+    color: var(--text-main) !important;
+    border: 1px solid var(--border-color) !important;
+    border-radius: var(--radius-sm) !important;
+    transition: var(--transition);
+}
+
+.stTextInput input:focus, .stNumberInput input:focus, .stSelectbox > div > div:focus-within {
+    border-color: var(--accent-primary) !important;
+    box-shadow: 0 0 0 1px var(--accent-primary) !important;
+}
+
+/* Sidebar */
+[data-testid="stSidebar"] {
+    background: rgba(13, 17, 23, 0.95);
+    backdrop-filter: var(--blur-effect);
+    -webkit-backdrop-filter: var(--blur-effect);
+    border-right: 1px solid var(--border-color);
+}
+[data-testid="stSidebar"] [data-testid="stVerticalBlock"] > div:first-child h1 {
+    font-size: 1.5rem;
+    background: linear-gradient(90deg, #58a6ff, #bc8cff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* Dataframe */
+[data-testid="stDataFrame"] {
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border-color);
+    overflow: hidden;
+}
+[data-testid="stDataFrame"] table {
+    background: var(--bg-card) !important;
+}
+[data-testid="stDataFrame"] th {
+    background: rgba(22, 27, 34, 0.9) !important;
+    border-bottom: 1px solid var(--border-color) !important;
+    color: var(--text-main) !important;
+    font-weight: 600 !important;
+}
+[data-testid="stDataFrame"] td {
+    color: var(--text-muted) !important;
+    border-bottom: 1px solid rgba(48, 54, 61, 0.3) !important;
+}
+
+/* Tabs */
+[data-testid="stTabs"] button {
+    border-bottom-color: var(--border-color) !important;
+    color: var(--text-muted) !important;
+}
+[data-testid="stTabs"] button[aria-selected="true"] {
+    color: var(--accent-primary) !important;
+    border-bottom-color: var(--accent-primary) !important;
+}
+[data-testid="stTabs"] button:focus {
+    box-shadow: none !important;
+    background-color: transparent !important;
+}
+
+/* Alerts / Info boxes */
+[data-testid="stAlert"] {
+    background: var(--bg-card);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border-color);
+    color: var(--text-main);
+}
+[data-testid="stAlert"][class*="success"] { border-left: 4px solid var(--accent-secondary); }
+[data-testid="stAlert"][class*="info"] { border-left: 4px solid var(--accent-primary); }
+[data-testid="stAlert"][class*="warning"] { border-left: 4px solid #d29922; }
+[data-testid="stAlert"][class*="error"] { border-left: 4px solid var(--accent-red); }
+
+/* Spinners */
+.stSpinner > div > div {
+    border-color: var(--accent-primary) transparent transparent transparent !important;
+}
+
+/* Horizontal Divider */
+hr {
+    border-color: var(--border-color) !important;
+    margin: 2rem 0 !important;
+}
+
+/* --- ANIMATIONS AND CUSTOM CLASSES --- */
+@keyframes pulseGlow {
+    0% { box-shadow: 0 0 0 0 rgba(47, 129, 247, 0.4); }
+    70% { box-shadow: 0 0 0 10px rgba(47, 129, 247, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(47, 129, 247, 0); }
+}
+
+.pulse-indicator {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: var(--accent-secondary);
+    animation: pulseGlow 2s infinite;
+    margin-right: 8px;
+}
+.pulse-indicator.offline {
+    background-color: var(--accent-red);
+    animation: none;
+}
+
+.badge {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+.badge-high { background: rgba(35, 134, 54, 0.2); color: #3fb950; border: 1px solid rgba(63, 185, 80, 0.4); }
+.badge-medium { background: rgba(210, 153, 34, 0.2); color: #d29922; border: 1px solid rgba(210, 153, 34, 0.4); }
+.badge-low { background: rgba(218, 54, 51, 0.2); color: #f85149; border: 1px solid rgba(248, 81, 73, 0.4); }
+
+.detail-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px dashed var(--border-color);
+}
+.detail-label { color: var(--text-muted); font-size: 0.9rem; }
+.detail-value { color: var(--text-main); font-weight: 500; font-size: 0.9rem; }
+
+.quote-block {
+    border-left: 3px solid var(--accent-primary);
+    padding-left: 1rem;
+    margin: 1rem 0;
+    font-style: italic;
+    color: var(--text-muted);
+}
