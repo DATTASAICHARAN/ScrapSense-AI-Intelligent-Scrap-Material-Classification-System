@@ -1,4 +1,4 @@
-# ⚡ ScrapVision AI
+# ⚡ ScrapSense-AI
 
 **Intelligent Scrap Material Classification & Analysis System**
 
