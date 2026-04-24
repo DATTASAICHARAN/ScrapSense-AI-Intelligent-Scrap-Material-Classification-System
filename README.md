@@ -319,10 +319,12 @@ This project is open-source. See the [LICENSE](LICENSE) file for details.
 
 ---
 
-## 👤 Author
+## 👨‍💻 Developed & Enhanced by
 
-**Venkatasai** — [GitHub](https://github.com/Venkatasai6789)
+**Datta Sai Charan**  
+[GitHub](https://github.com/DATTASAICHARAN)
 
+> Originally based on an open-source project, further developed and enhanced with additional features and improvements.
 ---
 
 <p align="center">
